@@ -1,15 +1,20 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Navbar, Container } from "react-bootstrap";
 
+import "../assets/css/pokeapi.css";
+import logo2 from "../img/logo2.png";
+
 const nNavbar = () => {
+    const setActiveClass = ({ isActive }) => (isActive ? "active" : "no-active");
+
     return (
-        <Navbar bg="danger" variant="dark">
+        <Navbar bg="dark" variant="dark">
             <Container className="justify-content-between">
+                <Navbar.Brand> <img src={logo2} width="50px" alt="pokebola" /> </Navbar.Brand>
                 <div>
-                    <Link to="/" className="text-white ms-3 text-decoration-none">🏡Home</Link>
-                    <Link to="/contacto" className="text-white ms-3 text-decoration-none">📒Contacto</Link>
+                    <NavLink to="/" className={setActiveClass}>Home</NavLink>
+                    <NavLink to="/pokemones" className={setActiveClass}>Pokemones</NavLink>
                 </div>
-                <Navbar.Brand>Happy Cake🍰</Navbar.Brand>
             </Container>
         </Navbar>
     )

@@ -4,19 +4,24 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Navbar from './components/Navbar';
 import Home from './views/Home';
-import Contacto from './views/Contacto';
+import Pokemones from './views/Pokemones';
+import Personaje from './views/Personaje';
 import NotFound from './views/NotFound';
+import ContextProvider from './context/MyContext';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/contacto" element={<Contacto />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
+    <ContextProvider>
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/pokemones" element={<Pokemones />} />
+          <Route path="/personaje/id:" element={<Personaje />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </ContextProvider>
   );
 }
 
