@@ -7,8 +7,8 @@ export default () => {
     const { pokemonList, setPokemonList } = useContext(MyContext)
     const navigate = useNavigate();
 
-    const goToPokemon = (name) => {
-        navigate(`/personaje/${name}`)
+    const goToPokemon = (id) => {
+        navigate(`/pokemones/personaje/${id}`)
     }
 
     const handleSelect = (e) => {
@@ -17,7 +17,7 @@ export default () => {
 
 
     return (
-        <Container className="pt-5">
+        <Container className="pt-5 w-25">
             <h1 className="text-center">Selecciona tu Pokemon</h1>
 
             <select onChange={handleSelect} className="form-select" aria-label="Default select example">

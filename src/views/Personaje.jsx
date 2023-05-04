@@ -1,43 +1,41 @@
 import { Row, Col, Button, Card, Container } from "react-bootstrap"
 import { useContext, useEffect, useState } from "react"
-import { MyContext } from "../context/MyContext"
 import { useNavigate, useParams } from "react-router-dom"
 
 export default () => {
     const navigate = useNavigate();
-    const { name } = useParams()
+    const { id } = useParams()
+    const [pokemon, setPokemon] = useState()
 
-    const [nombre, setNombre] = useState("")
-    const [image, setImage] = useState("")
-    const [height, setHeight] = useState()
-    const [weight, setWeight] = useState()
-
-    const getPokemons = async () => {
-        const res = await fetch("http://pokeapi.co/api/v2/pokemon/" + name);
+    const getPersonajes = async () => {
+        const res = await fetch(`http://pokeapi.co/api/v2/pokemon/${id}`);
         const data = await res.json();
-        setNombre(data.name)
-        setImage(data.sprites.other.dream_world.front_default)
-        setHeight(data.height)
-        setWeight(data.weight)
-
+        setPokemon(data)
     }
 
     useEffect(() => {
-        getPokemons()
-    }, [])
+        getPersonajes()
+    }, [id])
 
 
     return (
-        <Container>
+        <Container className="d-flex justify-content-center">
             <Card style={{ width: '60rem' }} className="mt-5">
                 <Card.Body>
                     <Row>
-                        <Col className="d-flex justify-content-center my-2"><img src={image}></img></Col>
+                        <Col className="d-flex justify-content-center my-2"><img src={pokemon?.sprites.other.dream_world.front_default} alt="pokemon"></img></Col>
                         <Col className="my-5">
-                            <h1>{nombre}</h1>
+                            <h1>{pokemon?.name.toUpperCase()}</h1>
                             <ul>
-                                <li>Altura: {height} ft</li>
-                                <li>Peso: {weight} kg</li>
+                                <li>Element: {pokemon?.types[0].type.name}</li>
+                                <li>Height: {pokemon?.height} ft</li>
+                                <li>Weight: {pokemon?.weight} kg</li>
+                                <li>HP: {pokemon?.stats[0].base_stat}</li>
+                                <li>Attack: {pokemon?.stats[1].base_stat}</li>
+                                <li>Defense: {pokemon?.stats[2].base_stat}</li>
+                                <li>Special Attack: {pokemon?.stats[3].base_stat}</li>
+                                <li>Special Defense: {pokemon?.stats[4].base_stat}</li>
+                                <li>Speed: {pokemon?.stats[5].base_stat}</li>
                             </ul>
                             <Button variant="dark" onClick={() => navigate("/pokemones")}>Volver a Pokemones</Button>
                         </Col>
